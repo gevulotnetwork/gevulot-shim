@@ -219,7 +219,7 @@ fn run_task(task: Task) -> Result<TaskResult> {
   ops build ./target/release/my_prover -c my_prover.manifest
 ```
 
-6. Run the program with the `shim-executor`
+### 6. Run the program with the `shim-executor`
 
 ```shell
   WORKSPACEDIR=$(mktemp -d -t test-workspace-XXXX)
