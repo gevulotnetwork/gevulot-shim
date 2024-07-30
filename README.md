@@ -13,6 +13,95 @@ Gevulot Shim provides a helper library to integrate program to be run under Gevu
 
 `shim-executor` is a simple test tool that executes the task on a program in VM in same way as Gevulot node would.
 
+**`shim-executor --help:`**`
+```
+Gevulot Shim Executor
+
+Usage: shim-executor [OPTIONS] --workspace <WORKSPACE> <PROGRAM> [-- <ARGS>...]
+
+Arguments:
+  <PROGRAM>
+
+
+  [ARGS]...
+          Program args
+
+Options:
+  -f, --file <FILE>
+          File to be added to program execution
+
+  -g, --gpu <GPU>
+          PCI device path to GPU device
+
+  -s, --smp <SMP>
+          Number of CPU cores to allocate to VM
+
+          [default: 1]
+
+  -m, --mem <MEM>
+          Memory in MBs
+
+          [default: 512]
+
+  -w, --workspace <WORKSPACE>
+          Workspace directory
+
+      --task-id <TASK_ID>
+          Task ID to be used in the task descriptor
+
+          [default: task01]
+
+  -h, --help
+          Print help (see a summary with '-h')
+
+  -V, --version
+          Print version
+
+```
+
+### Basic no-arg program execution
+
+The simplest execution of Gevulot program under `shim-executor` looks like following:
+
+```
+  shim-executor --workspace "$WORKSPACEDIR" my_program.img
+```
+
+In that example, no `Task.args`, nor input files are submitted to `my_program`.
+
+
+### Program arguments to `Task`
+
+`ARGS` are place into the `Task` struct as-is.
+
+**Example:**
+```
+  shim-executor --workspace "$WORKSPACEDIR" --smp 8 --file witness.bin my_prover.img -- --mode prove --witness /workspace/witness.bin --cpus 8 --no-gpu --example_flag 1
+```
+
+That would result with following `Task.args`:
+`["--mode", "prove", "--witness", "/workspace/witness.bin", "--cpus", "8", "--no-gpu", "--example_flag", "1"]`
+
+**NOTE:** `Task.args` **DOES NOT INCLUDE** the program binary name, like `std::env::args()` normally does. Those are specifically _task_ arguments, not program arguments.
+
+### Multiple program input files
+
+Multiple program input files can be given by giving multiple instances of `--file` argument.
+
+**Example:**
+```
+  shim-executor --workspace "$WORKSPACEDIR" --file file1.bin --file file2.bin --file witness.bin my_prover.img
+```
+
+### Multiple GPU devices
+
+`shim-executor` & Gevulot VMs in general can support multiple GPUs, if needed. Issue `--gpu` argument multiple times for each GPU PCI device address to bind them to program VM.
+
+**Example:**
+```
+  shim-executor --workspace "$WORKSPACEDIR" --file witness.bin --gpu 0000:01:00.0 --gpu 0000:61:00.0 my_gpu_prover.img
+```
+
 ## Example:
 
 ### 1. Create a test prover
