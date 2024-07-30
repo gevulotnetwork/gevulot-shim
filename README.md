@@ -3,7 +3,7 @@
 Gevulot Shim provides a helper library to integrate program to be run under Gevulot.
 
 
-## Building the shim
+## Build
 
 ```
   cargo build --release
@@ -13,15 +13,15 @@ Gevulot Shim provides a helper library to integrate program to be run under Gevu
 
 `shim-executor` is a simple test tool that executes the task on a program in VM in same way as Gevulot node would.
 
-## Simple complete example:
+## Example:
 
-1. Create a test prover
+### 1. Create a test prover
 
 ```
   cargo new --bin my_prover
 ```
 
-2. Add `gevulot-shim` dependency
+### 2. Add `gevulot-shim` dependency
 
 `Cargo.toml` should look like following:
 ```
@@ -35,7 +35,7 @@ clap = { version = "4", features = ["derive"] }
 gevulot-shim = { git = "https://github.com/gevulotnetwork/gevulot-shim.git" }
 ```
 
-3. Write some simple dummy prover for testing
+### 3. Write some simple dummy prover for testing
 
 `src/main.rs` should look like following:
 ```rust
@@ -103,7 +103,7 @@ fn run_task(task: Task) -> Result<TaskResult> {
 }
 ```
 
-4. Add manifest for building the program VM
+### 4. Add manifest for building the program VM
 
 `my_prover.manifest` should look like:
 ```
@@ -123,7 +123,7 @@ fn run_task(task: Task) -> Result<TaskResult> {
 
 ```
 
-5. Build the program & the VM image
+### 5. Build the program & the VM image
 
 ```
   cargo build --release
@@ -141,7 +141,7 @@ fn run_task(task: Task) -> Result<TaskResult> {
   rm -fr "$WORKSPACEDIR"
 ```
 
-Outline of above:
+#### Outline of above:
 1. Create a tempdir for workspace.
 2. Create a test input file that mimics a witness file of a prover.
 3. Run the prover VM using the `shim-executor`.
