@@ -23,7 +23,7 @@ Gevulot Shim provides a helper library to integrate program to be run under Gevu
 
 ### 2. Add `gevulot-shim` dependency
 
-**`Cargo.toml:`**`
+**`Cargo.toml:`**
 ```toml
 [package]
 name = "my_prover"
@@ -37,7 +37,7 @@ gevulot-shim = { git = "https://github.com/gevulotnetwork/gevulot-shim.git" }
 
 ### 3. Write some simple dummy prover for testing
 
-**`src/main.rs:`**`
+**`src/main.rs:`**
 ```rust
 use clap::Parser;
 use gevulot_shim::{Task, TaskResult, WORKSPACE_PATH};
