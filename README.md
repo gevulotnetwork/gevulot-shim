@@ -23,8 +23,7 @@ Gevulot Shim provides a helper library to integrate program to be run under Gevu
 
 ### 2. Add `gevulot-shim` dependency
 
-`Cargo.toml` should look like following:
-```
+```filename=Cargo.toml
 [package]
 name = "my_prover"
 version = "0.1.0"
@@ -37,8 +36,7 @@ gevulot-shim = { git = "https://github.com/gevulotnetwork/gevulot-shim.git" }
 
 ### 3. Write some simple dummy prover for testing
 
-`src/main.rs` should look like following:
-```rust
+```rust filename=src/main.rs
 use clap::Parser;
 use gevulot_shim::{Task, TaskResult, WORKSPACE_PATH};
 use std::{fs, path::PathBuf};
@@ -105,8 +103,7 @@ fn run_task(task: Task) -> Result<TaskResult> {
 
 ### 4. Add manifest for building the program VM
 
-`my_prover.manifest` should look like:
-```
+```json filename=my_prover.manifest
 {
   "ManifestPassthrough": {
     "readonly_rootfs": "true"
@@ -125,14 +122,14 @@ fn run_task(task: Task) -> Result<TaskResult> {
 
 ### 5. Build the program & the VM image
 
-```
+```shell
   cargo build --release
   ops build ./target/release/my_prover -c my_prover.manifest
 ```
 
 6. Run the program with the `shim-executor`
 
-```
+```shell
   WORKSPACEDIR=$(mktemp -d -t test-workspace-XXXX)
   echo "Hello, world!" > "$WORKSPACEDIR"/test.input
   shim-executor --workspace "$WORKSPACEDIR" my_prover.img -- --prove --input /workspace/test.input --output /workspace/test.output
