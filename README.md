@@ -13,7 +13,7 @@ Gevulot Shim provides a helper library to integrate program to be run under Gevu
 
 `shim-executor` is a simple test tool that executes the task on a program in VM in same way as Gevulot node would.
 
-**`shim-executor --help:`**`
+**`shim-executor --help:`**
 ```
 Gevulot Shim Executor
 
