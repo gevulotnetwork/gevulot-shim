@@ -224,7 +224,7 @@ fn run_task(task: Task) -> Result<TaskResult> {
 ```shell
   WORKSPACEDIR=$(mktemp -d -t test-workspace-XXXX)
   echo "Hello, world!" > "$WORKSPACEDIR"/test.input
-  shim-executor --workspace "$WORKSPACEDIR" --file test.input my_prover.img -- --input /workspace/test.input --output /workspace/test.output
+  shim-executor --workspace "$WORKSPACEDIR" --file test.input ~/.ops/images/my_prover -- --input /workspace/test.input --output /workspace/test.output
   echo "test.output:"
   cat "$WORKSPACEDIR"/test.output
   rm -fr "$WORKSPACEDIR"
